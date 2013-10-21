@@ -1,0 +1,1280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://schema.open.collab.net/sfee50/soap50/service" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://schema.open.collab.net/sfee50/soap50/service" xmlns:intf="http://schema.open.collab.net/sfee50/soap50/service" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns1="http://schema.open.collab.net/sfee50/soap50/type" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema targetNamespace="http://schema.open.collab.net/sfee50/soap50/type" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://schema.open.collab.net/sfee50/soap50/service"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType abstract="true" name="ObjectSoapDO">
+    <sequence>
+     <element name="createdBy" nillable="true" type="xsd:string"/>
+     <element name="createdDate" nillable="true" type="xsd:dateTime"/>
+     <element name="id" nillable="true" type="xsd:string"/>
+     <element name="lastModifiedBy" nillable="true" type="xsd:string"/>
+     <element name="lastModifiedDate" nillable="true" type="xsd:dateTime"/>
+     <element name="version" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType abstract="true" name="FolderSoapDO">
+    <complexContent>
+     <extension base="tns1:ObjectSoapDO">
+      <sequence>
+       <element name="description" nillable="true" type="xsd:string"/>
+       <element name="parentFolderId" nillable="true" type="xsd:string"/>
+       <element name="path" nillable="true" type="xsd:string"/>
+       <element name="projectId" nillable="true" type="xsd:string"/>
+       <element name="title" nillable="true" type="xsd:string"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="PlanningFolderSoapDO">
+    <complexContent>
+     <extension base="tns1:FolderSoapDO">
+      <sequence>
+       <element name="endDate" nillable="true" type="xsd:dateTime"/>
+       <element name="startDate" nillable="true" type="xsd:dateTime"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="WebServiceFault">
+    <sequence/>
+   </complexType>
+   <complexType name="InvalidSessionFault">
+    <complexContent>
+     <extension base="tns1:WebServiceFault">
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="NoSuchObjectFault">
+    <complexContent>
+     <extension base="tns1:WebServiceFault">
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="PermissionDeniedFault">
+    <complexContent>
+     <extension base="tns1:WebServiceFault">
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="SystemFault">
+    <complexContent>
+     <extension base="tns1:WebServiceFault">
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="IllegalArgumentFault">
+    <complexContent>
+     <extension base="tns1:WebServiceFault">
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="ObjectAlreadyExistsFault">
+    <complexContent>
+     <extension base="tns1:WebServiceFault">
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="VersionMismatchFault">
+    <complexContent>
+     <extension base="tns1:WebServiceFault">
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="PlanningFolderRuleViolationFault">
+    <complexContent>
+     <extension base="tns1:WebServiceFault">
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="InvalidOperationFault">
+    <complexContent>
+     <extension base="tns1:WebServiceFault">
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType abstract="true" name="FolderSoapList">
+    <sequence/>
+   </complexType>
+   <complexType name="FolderSoapRow">
+    <sequence>
+     <element name="createdBy" nillable="true" type="xsd:string"/>
+     <element name="createdOn" nillable="true" type="xsd:dateTime"/>
+     <element name="description" nillable="true" type="xsd:string"/>
+     <element name="id" nillable="true" type="xsd:string"/>
+     <element name="lastModifiedBy" nillable="true" type="xsd:string"/>
+     <element name="lastModifiedOn" nillable="true" type="xsd:dateTime"/>
+     <element name="parentFolderId" nillable="true" type="xsd:string"/>
+     <element name="path" nillable="true" type="xsd:string"/>
+     <element name="projectId" nillable="true" type="xsd:string"/>
+     <element name="title" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="PlanningFolderSoapRow">
+    <complexContent>
+     <extension base="tns1:FolderSoapRow">
+      <sequence>
+       <element name="endDate" nillable="true" type="xsd:dateTime"/>
+       <element name="startDate" nillable="true" type="xsd:dateTime"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="PlanningFolderSoapList">
+    <complexContent>
+     <extension base="tns1:FolderSoapList">
+      <sequence>
+       <element name="dataRows" nillable="true" type="impl:ArrayOf_tns1_PlanningFolderSoapRow"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="PlanningFolderSummarySoapDO">
+    <complexContent>
+     <extension base="tns1:FolderSoapDO">
+      <sequence>
+       <element name="actualEffortSummary" type="xsd:int"/>
+       <element name="actualPriority0" type="xsd:int"/>
+       <element name="actualPriority1" type="xsd:int"/>
+       <element name="actualPriority2" type="xsd:int"/>
+       <element name="actualPriority3" type="xsd:int"/>
+       <element name="actualPriority4" type="xsd:int"/>
+       <element name="actualPriority5" type="xsd:int"/>
+       <element name="endDate" nillable="true" type="xsd:dateTime"/>
+       <element name="estimatedEffortSummary" type="xsd:int"/>
+       <element name="estimatedPriority0" type="xsd:int"/>
+       <element name="estimatedPriority1" type="xsd:int"/>
+       <element name="estimatedPriority2" type="xsd:int"/>
+       <element name="estimatedPriority3" type="xsd:int"/>
+       <element name="estimatedPriority4" type="xsd:int"/>
+       <element name="estimatedPriority5" type="xsd:int"/>
+       <element name="openPriority0" type="xsd:int"/>
+       <element name="openPriority1" type="xsd:int"/>
+       <element name="openPriority2" type="xsd:int"/>
+       <element name="openPriority3" type="xsd:int"/>
+       <element name="openPriority4" type="xsd:int"/>
+       <element name="openPriority5" type="xsd:int"/>
+       <element name="remainingEffortSummary" type="xsd:int"/>
+       <element name="remainingPriority0" type="xsd:int"/>
+       <element name="remainingPriority1" type="xsd:int"/>
+       <element name="remainingPriority2" type="xsd:int"/>
+       <element name="remainingPriority3" type="xsd:int"/>
+       <element name="remainingPriority4" type="xsd:int"/>
+       <element name="remainingPriority5" type="xsd:int"/>
+       <element name="startDate" nillable="true" type="xsd:dateTime"/>
+       <element name="totalClosed" type="xsd:int"/>
+       <element name="totalOpen" type="xsd:int"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="PlanningFolderSummarySoapRow">
+    <complexContent>
+     <extension base="tns1:FolderSoapRow">
+      <sequence>
+       <element name="actualEffortSummary" type="xsd:int"/>
+       <element name="actualPriority0" type="xsd:int"/>
+       <element name="actualPriority1" type="xsd:int"/>
+       <element name="actualPriority2" type="xsd:int"/>
+       <element name="actualPriority3" type="xsd:int"/>
+       <element name="actualPriority4" type="xsd:int"/>
+       <element name="actualPriority5" type="xsd:int"/>
+       <element name="endDate" nillable="true" type="xsd:dateTime"/>
+       <element name="estimatedEffortSummary" type="xsd:int"/>
+       <element name="estimatedPriority0" type="xsd:int"/>
+       <element name="estimatedPriority1" type="xsd:int"/>
+       <element name="estimatedPriority2" type="xsd:int"/>
+       <element name="estimatedPriority3" type="xsd:int"/>
+       <element name="estimatedPriority4" type="xsd:int"/>
+       <element name="estimatedPriority5" type="xsd:int"/>
+       <element name="openPriority0" type="xsd:int"/>
+       <element name="openPriority1" type="xsd:int"/>
+       <element name="openPriority2" type="xsd:int"/>
+       <element name="openPriority3" type="xsd:int"/>
+       <element name="openPriority4" type="xsd:int"/>
+       <element name="openPriority5" type="xsd:int"/>
+       <element name="remainingEffortSummary" type="xsd:int"/>
+       <element name="remainingPriority0" type="xsd:int"/>
+       <element name="remainingPriority1" type="xsd:int"/>
+       <element name="remainingPriority2" type="xsd:int"/>
+       <element name="remainingPriority3" type="xsd:int"/>
+       <element name="remainingPriority4" type="xsd:int"/>
+       <element name="remainingPriority5" type="xsd:int"/>
+       <element name="startDate" nillable="true" type="xsd:dateTime"/>
+       <element name="totalClosed" type="xsd:int"/>
+       <element name="totalOpen" type="xsd:int"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="PlanningFolderSummarySoapList">
+    <complexContent>
+     <extension base="tns1:FolderSoapList">
+      <sequence>
+       <element name="dataRows" nillable="true" type="impl:ArrayOf_tns1_PlanningFolderSummarySoapRow"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="SoapFilter">
+    <sequence>
+     <element name="name" nillable="true" type="xsd:string"/>
+     <element name="value" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArtifactsInPlanningFolderSoapRow">
+    <sequence>
+     <element name="actualEffort" type="xsd:int"/>
+     <element name="artifactGroup" nillable="true" type="xsd:string"/>
+     <element name="assignedToFullname" nillable="true" type="xsd:string"/>
+     <element name="assignedToUsername" nillable="true" type="xsd:string"/>
+     <element name="autosumming" type="xsd:boolean"/>
+     <element name="category" nillable="true" type="xsd:string"/>
+     <element name="childrenIds" nillable="true" type="impl:ArrayOf_xsd_string"/>
+     <element name="closeDate" nillable="true" type="xsd:dateTime"/>
+     <element name="customer" nillable="true" type="xsd:string"/>
+     <element name="description" nillable="true" type="xsd:string"/>
+     <element name="estimatedEffort" type="xsd:int"/>
+     <element name="folderId" nillable="true" type="xsd:string"/>
+     <element name="folderPathString" nillable="true" type="xsd:string"/>
+     <element name="folderTitle" nillable="true" type="xsd:string"/>
+     <element name="hasChildren" type="xsd:boolean"/>
+     <element name="id" nillable="true" type="xsd:string"/>
+     <element name="lastModifiedDate" nillable="true" type="xsd:dateTime"/>
+     <element name="parentId" nillable="true" type="xsd:string"/>
+     <element name="planningFolderId" nillable="true" type="xsd:string"/>
+     <element name="planningFolderTitle" nillable="true" type="xsd:string"/>
+     <element name="priority" type="xsd:int"/>
+     <element name="projectId" nillable="true" type="xsd:string"/>
+     <element name="projectPathString" nillable="true" type="xsd:string"/>
+     <element name="projectTitle" nillable="true" type="xsd:string"/>
+     <element name="remainingEffort" type="xsd:int"/>
+     <element name="reportedInReleaseTitle" nillable="true" type="xsd:string"/>
+     <element name="resolvedInReleaseTitle" nillable="true" type="xsd:string"/>
+     <element name="status" nillable="true" type="xsd:string"/>
+     <element name="statusClass" nillable="true" type="xsd:string"/>
+     <element name="submittedByFullname" nillable="true" type="xsd:string"/>
+     <element name="submittedByUsername" nillable="true" type="xsd:string"/>
+     <element name="submittedDate" nillable="true" type="xsd:dateTime"/>
+     <element name="title" nillable="true" type="xsd:string"/>
+     <element name="trackerIcon" nillable="true" type="xsd:string"/>
+     <element name="version" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArtifactsInPlanningFolderSoapList">
+    <sequence>
+     <element name="dataRows" nillable="true" type="impl:ArrayOf_tns1_ArtifactsInPlanningFolderSoapRow"/>
+    </sequence>
+   </complexType>
+   <complexType name="InvalidFilterFault">
+    <complexContent>
+     <extension base="tns1:WebServiceFault">
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
+  </schema>
+  <schema targetNamespace="http://schema.open.collab.net/sfee50/soap50/service" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://schema.open.collab.net/sfee50/soap50/type"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="ArrayOf_tns1_PlanningFolderSoapRow">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:PlanningFolderSoapRow[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_tns1_PlanningFolderSummarySoapRow">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:PlanningFolderSummarySoapRow[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_tns1_SoapFilter">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:SoapFilter[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_xsd_string">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="xsd:string[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_tns1_ArtifactsInPlanningFolderSoapRow">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:ArtifactsInPlanningFolderSoapRow[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="getPlanningFolderListResponse">
+
+      <wsdl:part name="getPlanningFolderListReturn" type="tns1:PlanningFolderSoapList"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="PermissionDeniedFault">
+
+      <wsdl:part name="fault" type="tns1:PermissionDeniedFault"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getPlanningFolderSummaryListResponse">
+
+      <wsdl:part name="getPlanningFolderSummaryListReturn" type="tns1:PlanningFolderSummarySoapList"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getPlanningFolderListRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="parentId" type="soapenc:string"/>
+
+      <wsdl:part name="recursive" type="xsd:boolean"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="reorderPlanningFoldersRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="parentId" type="soapenc:string"/>
+
+      <wsdl:part name="planningFolderIds" type="impl:ArrayOf_xsd_string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getPlanningFolderSummaryRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="planningFolderId" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="InvalidFilterFault">
+
+      <wsdl:part name="fault" type="tns1:InvalidFilterFault"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="SystemFault">
+
+      <wsdl:part name="fault" type="tns1:SystemFault"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="InvalidSessionFault">
+
+      <wsdl:part name="fault" type="tns1:InvalidSessionFault"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getPlanningFolderDataRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="planningFolderId" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="deletePlanningFolderRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="planningFolderId" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getArtifactListInPlanningFolderRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="parentId" type="soapenc:string"/>
+
+      <wsdl:part name="filters" type="impl:ArrayOf_tns1_SoapFilter"/>
+
+      <wsdl:part name="recursive" type="xsd:boolean"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="IllegalArgumentFault">
+
+      <wsdl:part name="fault" type="tns1:IllegalArgumentFault"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getArtifactListInPlanningFolderResponse">
+
+      <wsdl:part name="getArtifactListInPlanningFolderReturn" type="tns1:ArtifactsInPlanningFolderSoapList"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="PlanningFolderRuleViolationFault">
+
+      <wsdl:part name="fault" type="tns1:PlanningFolderRuleViolationFault"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getPlanningFolderSummaryListRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="parentId" type="soapenc:string"/>
+
+      <wsdl:part name="recursive" type="xsd:boolean"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="createPlanningFolderRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="parentId" type="soapenc:string"/>
+
+      <wsdl:part name="title" type="soapenc:string"/>
+
+      <wsdl:part name="description" type="soapenc:string"/>
+
+      <wsdl:part name="startDate" type="xsd:dateTime"/>
+
+      <wsdl:part name="endDate" type="xsd:dateTime"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getPlanningFolderSummaryResponse">
+
+      <wsdl:part name="getPlanningFolderSummaryReturn" type="tns1:PlanningFolderSummarySoapDO"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="createPlanningFolderResponse">
+
+      <wsdl:part name="createPlanningFolderReturn" type="tns1:PlanningFolderSoapDO"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="NoSuchObjectFault">
+
+      <wsdl:part name="fault" type="tns1:NoSuchObjectFault"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="reorderPlanningFoldersResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="InvalidOperationFault">
+
+      <wsdl:part name="fault" type="tns1:InvalidOperationFault"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="movePlanningFolderRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="planningFolderId" type="soapenc:string"/>
+
+      <wsdl:part name="destParentId" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="setPlanningFolderDataResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="getPlanningFolderDataResponse">
+
+      <wsdl:part name="getPlanningFolderDataReturn" type="tns1:PlanningFolderSoapDO"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="movePlanningFolderResponse">
+
+      <wsdl:part name="movePlanningFolderReturn" type="tns1:PlanningFolderSoapDO"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="deletePlanningFolderResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="ObjectAlreadyExistsFault">
+
+      <wsdl:part name="fault" type="tns1:ObjectAlreadyExistsFault"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="setPlanningFolderDataRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="planningFolderData" type="tns1:PlanningFolderSoapDO"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="VersionMismatchFault">
+
+      <wsdl:part name="fault" type="tns1:VersionMismatchFault"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="PlanningAppSoap">
+
+      <wsdl:operation name="getPlanningFolderData" parameterOrder="sessionId planningFolderId">
+
+         <wsdl:input message="impl:getPlanningFolderDataRequest" name="getPlanningFolderDataRequest"/>
+
+         <wsdl:output message="impl:getPlanningFolderDataResponse" name="getPlanningFolderDataResponse"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:IllegalArgumentFault" name="IllegalArgumentFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="createPlanningFolder" parameterOrder="sessionId parentId title description startDate endDate">
+
+         <wsdl:input message="impl:createPlanningFolderRequest" name="createPlanningFolderRequest"/>
+
+         <wsdl:output message="impl:createPlanningFolderResponse" name="createPlanningFolderResponse"/>
+
+         <wsdl:fault message="impl:ObjectAlreadyExistsFault" name="ObjectAlreadyExistsFault"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:IllegalArgumentFault" name="IllegalArgumentFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setPlanningFolderData" parameterOrder="sessionId planningFolderData">
+
+         <wsdl:input message="impl:setPlanningFolderDataRequest" name="setPlanningFolderDataRequest"/>
+
+         <wsdl:output message="impl:setPlanningFolderDataResponse" name="setPlanningFolderDataResponse"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:IllegalArgumentFault" name="IllegalArgumentFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+         <wsdl:fault message="impl:VersionMismatchFault" name="VersionMismatchFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="movePlanningFolder" parameterOrder="sessionId planningFolderId destParentId">
+
+         <wsdl:input message="impl:movePlanningFolderRequest" name="movePlanningFolderRequest"/>
+
+         <wsdl:output message="impl:movePlanningFolderResponse" name="movePlanningFolderResponse"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:IllegalArgumentFault" name="IllegalArgumentFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+         <wsdl:fault message="impl:PlanningFolderRuleViolationFault" name="PlanningFolderRuleViolationFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deletePlanningFolder" parameterOrder="sessionId planningFolderId">
+
+         <wsdl:input message="impl:deletePlanningFolderRequest" name="deletePlanningFolderRequest"/>
+
+         <wsdl:output message="impl:deletePlanningFolderResponse" name="deletePlanningFolderResponse"/>
+
+         <wsdl:fault message="impl:InvalidOperationFault" name="InvalidOperationFault"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:IllegalArgumentFault" name="IllegalArgumentFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+         <wsdl:fault message="impl:VersionMismatchFault" name="VersionMismatchFault"/>
+
+         <wsdl:fault message="impl:PlanningFolderRuleViolationFault" name="PlanningFolderRuleViolationFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getPlanningFolderList" parameterOrder="sessionId parentId recursive">
+
+         <wsdl:input message="impl:getPlanningFolderListRequest" name="getPlanningFolderListRequest"/>
+
+         <wsdl:output message="impl:getPlanningFolderListResponse" name="getPlanningFolderListResponse"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:IllegalArgumentFault" name="IllegalArgumentFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getPlanningFolderSummary" parameterOrder="sessionId planningFolderId">
+
+         <wsdl:input message="impl:getPlanningFolderSummaryRequest" name="getPlanningFolderSummaryRequest"/>
+
+         <wsdl:output message="impl:getPlanningFolderSummaryResponse" name="getPlanningFolderSummaryResponse"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:IllegalArgumentFault" name="IllegalArgumentFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getPlanningFolderSummaryList" parameterOrder="sessionId parentId recursive">
+
+         <wsdl:input message="impl:getPlanningFolderSummaryListRequest" name="getPlanningFolderSummaryListRequest"/>
+
+         <wsdl:output message="impl:getPlanningFolderSummaryListResponse" name="getPlanningFolderSummaryListResponse"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:IllegalArgumentFault" name="IllegalArgumentFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getArtifactListInPlanningFolder" parameterOrder="sessionId parentId filters recursive">
+
+         <wsdl:input message="impl:getArtifactListInPlanningFolderRequest" name="getArtifactListInPlanningFolderRequest"/>
+
+         <wsdl:output message="impl:getArtifactListInPlanningFolderResponse" name="getArtifactListInPlanningFolderResponse"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:IllegalArgumentFault" name="IllegalArgumentFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+         <wsdl:fault message="impl:InvalidFilterFault" name="InvalidFilterFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="reorderPlanningFolders" parameterOrder="sessionId parentId planningFolderIds">
+
+         <wsdl:input message="impl:reorderPlanningFoldersRequest" name="reorderPlanningFoldersRequest"/>
+
+         <wsdl:output message="impl:reorderPlanningFoldersResponse" name="reorderPlanningFoldersResponse"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:IllegalArgumentFault" name="IllegalArgumentFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="PlanningAppSoapBinding" type="impl:PlanningAppSoap">
+
+      <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="getPlanningFolderData">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getPlanningFolderDataRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getPlanningFolderDataResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="IllegalArgumentFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="IllegalArgumentFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="createPlanningFolder">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="createPlanningFolderRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="createPlanningFolderResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="ObjectAlreadyExistsFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="ObjectAlreadyExistsFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="IllegalArgumentFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="IllegalArgumentFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setPlanningFolderData">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="setPlanningFolderDataRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="setPlanningFolderDataResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="IllegalArgumentFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="IllegalArgumentFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="VersionMismatchFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="VersionMismatchFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="movePlanningFolder">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="movePlanningFolderRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="movePlanningFolderResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="IllegalArgumentFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="IllegalArgumentFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PlanningFolderRuleViolationFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PlanningFolderRuleViolationFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deletePlanningFolder">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="deletePlanningFolderRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="deletePlanningFolderResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="InvalidOperationFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidOperationFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="IllegalArgumentFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="IllegalArgumentFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="VersionMismatchFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="VersionMismatchFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PlanningFolderRuleViolationFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PlanningFolderRuleViolationFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getPlanningFolderList">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getPlanningFolderListRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getPlanningFolderListResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="IllegalArgumentFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="IllegalArgumentFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getPlanningFolderSummary">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getPlanningFolderSummaryRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getPlanningFolderSummaryResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="IllegalArgumentFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="IllegalArgumentFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getPlanningFolderSummaryList">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getPlanningFolderSummaryListRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getPlanningFolderSummaryListResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="IllegalArgumentFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="IllegalArgumentFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getArtifactListInPlanningFolder">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getArtifactListInPlanningFolderRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getArtifactListInPlanningFolderResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="IllegalArgumentFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="IllegalArgumentFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidFilterFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidFilterFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="reorderPlanningFolders">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="reorderPlanningFoldersRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="reorderPlanningFoldersResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="IllegalArgumentFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="IllegalArgumentFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="PlanningAppSoapService">
+
+      <wsdl:port binding="impl:PlanningAppSoapBinding" name="PlanningApp">
+
+         <wsdlsoap:address location="http://localhost:8080/ce-soap50/services/PlanningApp"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

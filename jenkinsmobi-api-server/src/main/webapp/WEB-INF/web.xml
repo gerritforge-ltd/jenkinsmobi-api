@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="gitent" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+  <display-name>JenkinsCloudService</display-name>
+
+  <servlet>
+    <servlet-name>ConfigurationServlet</servlet-name>
+    <servlet-class>com.lmit.jenkinscloud.core.servlet.ConfigurationServlet</servlet-class>
+    <load-on-startup>1</load-on-startup> 
+  </servlet>
+
+  <servlet>
+    <servlet-name>PluginLoaderServlet</servlet-name>
+    <servlet-class>com.lmit.jenkinscloud.core.servlet.PluginLoaderServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet>
+    <servlet-name>JenkinsCloudServiceServlet</servlet-name>
+    <servlet-class>com.lmit.jenkinscloud.core.servlet.JenkinsCloudServiceServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>JenkinsCloudServiceServlet</servlet-name>
+    <url-pattern>/core/qaexplorer/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>JenkinsCloudServiceServlet</servlet-name>
+    <url-pattern>/core//qaexplorer/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>JenkinsCloudServiceServlet</servlet-name>
+    <url-pattern>/core/qaexplorer_root/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>JenkinsCloudServiceServlet</servlet-name>
+    <url-pattern>/core//qaexplorer_root/*</url-pattern>
+  </servlet-mapping>
+
+    <servlet>
+    <servlet-name>RegistryLoginService</servlet-name>
+    <servlet-class>com.lmit.jenkinscloud.accounts.servlet.rpc.RegistryLoginService</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>RegistryReadService</servlet-name>
+    <servlet-class>com.lmit.jenkinscloud.accounts.servlet.rpc.RegistryReadService</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>RegistryMSISDNService</servlet-name>
+    <servlet-class>com.lmit.jenkinscloud.accounts.servlet.rpc.RegistryMSISDNService</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>RegistrySubscriberIdService</servlet-name>
+    <servlet-class>com.lmit.jenkinscloud.accounts.servlet.rpc.RegistrySubscriberIdService</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>ConfigService</servlet-name>
+    <servlet-class>com.lmit.jenkinscloud.accounts.servlet.rpc.ConfigService</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>RegistryServlet</servlet-name>
+    <servlet-class>com.lmit.jenkinscloud.accounts.servlet.RegistryServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>UpdatePluginServlet</servlet-name>
+    <servlet-class>com.lmit.jenkinscloud.accounts.servlet.UpdatePluginServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>UpdateServlet</servlet-name>
+    <servlet-class>com.lmit.jenkinscloud.accounts.servlet.UpdateServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>NewPluginServlet</servlet-name>
+    <servlet-class>com.lmit.jenkinscloud.accounts.servlet.NewPluginServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>ConfigService</servlet-name>
+    <url-pattern>/registry/rpc/config</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>RegistryServlet</servlet-name>
+    <url-pattern>/registry</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>UpdateServlet</servlet-name>
+    <url-pattern>/registry/update</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>NewPluginServlet</servlet-name>
+    <url-pattern>/registry/newplugin</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>UpdatePluginServlet</servlet-name>
+    <url-pattern>/registry/updateplugin</url-pattern>
+  </servlet-mapping>
+  
+
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>JenkinsCloudServiceServlet</web-resource-name>
+      <url-pattern>/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>loggedin</role-name>
+    </auth-constraint>
+  </security-constraint>
+
+  <login-config>
+    <auth-method>BASIC</auth-method>
+    <realm-name>JenkinsCloudJettyRealm</realm-name>
+  </login-config>
+</web-app>
