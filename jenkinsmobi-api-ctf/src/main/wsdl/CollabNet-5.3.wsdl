@@ -1,0 +1,4667 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://schema.open.collab.net/sfee50/soap50/service" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://schema.open.collab.net/sfee50/soap50/service" xmlns:intf="http://schema.open.collab.net/sfee50/soap50/service" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns1="http://schema.open.collab.net/sfee50/soap50/type" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema targetNamespace="http://schema.open.collab.net/sfee50/soap50/type" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://schema.open.collab.net/sfee50/soap50/service"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="WebServiceFault">
+    <sequence/>
+   </complexType>
+   <complexType name="InvalidSessionFault">
+    <complexContent>
+     <extension base="tns1:WebServiceFault">
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType abstract="true" name="ObjectSoapDO">
+    <sequence>
+     <element name="createdBy" nillable="true" type="xsd:string"/>
+     <element name="createdDate" nillable="true" type="xsd:dateTime"/>
+     <element name="id" nillable="true" type="xsd:string"/>
+     <element name="lastModifiedBy" nillable="true" type="xsd:string"/>
+     <element name="lastModifiedDate" nillable="true" type="xsd:dateTime"/>
+     <element name="version" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="GroupSoapDO">
+    <complexContent>
+     <extension base="tns1:ObjectSoapDO">
+      <sequence>
+       <element name="description" nillable="true" type="xsd:string"/>
+       <element name="fullName" nillable="true" type="xsd:string"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="PermissionDeniedFault">
+    <complexContent>
+     <extension base="tns1:WebServiceFault">
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="IllegalArgumentFault">
+    <complexContent>
+     <extension base="tns1:WebServiceFault">
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="ObjectAlreadyExistsFault">
+    <complexContent>
+     <extension base="tns1:WebServiceFault">
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="SystemFault">
+    <complexContent>
+     <extension base="tns1:WebServiceFault">
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="UserSoapDO">
+    <complexContent>
+     <extension base="tns1:ObjectSoapDO">
+      <sequence>
+       <element name="email" nillable="true" type="xsd:string"/>
+       <element name="fullName" nillable="true" type="xsd:string"/>
+       <element name="locale" nillable="true" type="xsd:string"/>
+       <element name="restrictedUser" type="xsd:boolean"/>
+       <element name="status" nillable="true" type="xsd:string"/>
+       <element name="superUser" type="xsd:boolean"/>
+       <element name="timeZone" nillable="true" type="xsd:string"/>
+       <element name="username" nillable="true" type="xsd:string"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="NoSuchObjectFault">
+    <complexContent>
+     <extension base="tns1:WebServiceFault">
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="VersionMismatchFault">
+    <complexContent>
+     <extension base="tns1:WebServiceFault">
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="ActivationUserAlreadyRemovedFault">
+    <complexContent>
+     <extension base="tns1:WebServiceFault">
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="LastSuperUserFault">
+    <complexContent>
+     <extension base="tns1:WebServiceFault">
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="IllegalUserModificationFault">
+    <complexContent>
+     <extension base="tns1:WebServiceFault">
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="LoginFault">
+    <complexContent>
+     <extension base="tns1:WebServiceFault">
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="UserLimitExceededFault">
+    <complexContent>
+     <extension base="tns1:WebServiceFault">
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="ProjectSoapDO">
+    <complexContent>
+     <extension base="tns1:ObjectSoapDO">
+      <sequence>
+       <element name="description" nillable="true" type="xsd:string"/>
+       <element name="path" nillable="true" type="xsd:string"/>
+       <element name="title" nillable="true" type="xsd:string"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="ProjectSoapRow">
+    <sequence>
+     <element name="dateCreated" nillable="true" type="xsd:dateTime"/>
+     <element name="description" nillable="true" type="xsd:string"/>
+     <element name="id" nillable="true" type="xsd:string"/>
+     <element name="path" nillable="true" type="xsd:string"/>
+     <element name="title" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="ProjectSoapList">
+    <sequence>
+     <element name="dataRows" nillable="true" type="impl:ArrayOf_tns1_ProjectSoapRow"/>
+    </sequence>
+   </complexType>
+   <complexType name="RemoveOnlyProjectAdminFault">
+    <complexContent>
+     <extension base="tns1:WebServiceFault">
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="VersionInformationSoapRow">
+    <sequence>
+     <element name="id" nillable="true" type="xsd:string"/>
+     <element name="isFolder" type="xsd:boolean"/>
+     <element name="lastModifiedDate" nillable="true" type="xsd:dateTime"/>
+     <element name="version" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="VersionInformationSoapList">
+    <sequence>
+     <element name="dataRows" nillable="true" type="impl:ArrayOf_tns1_VersionInformationSoapRow"/>
+    </sequence>
+   </complexType>
+   <complexType name="AttachmentSoapRow">
+    <sequence>
+     <element name="attachmentId" nillable="true" type="xsd:string"/>
+     <element name="dateCreated" nillable="true" type="xsd:dateTime"/>
+     <element name="fileName" nillable="true" type="xsd:string"/>
+     <element name="fileSize" nillable="true" type="xsd:string"/>
+     <element name="mimetype" nillable="true" type="xsd:string"/>
+     <element name="rawFileId" nillable="true" type="xsd:string"/>
+     <element name="storedFileId" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="AttachmentSoapList">
+    <sequence>
+     <element name="dataRows" nillable="true" type="impl:ArrayOf_tns1_AttachmentSoapRow"/>
+    </sequence>
+   </complexType>
+   <complexType name="SoapFilter">
+    <sequence>
+     <element name="name" nillable="true" type="xsd:string"/>
+     <element name="value" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="UserSoapRow">
+    <sequence>
+     <element name="email" nillable="true" type="xsd:string"/>
+     <element name="fullName" nillable="true" type="xsd:string"/>
+     <element name="status" nillable="true" type="xsd:string"/>
+     <element name="superUser" type="xsd:boolean"/>
+     <element name="userName" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="UserSoapList">
+    <sequence>
+     <element name="dataRows" nillable="true" type="impl:ArrayOf_tns1_UserSoapRow"/>
+    </sequence>
+   </complexType>
+   <complexType name="SearchQuerySyntaxFault">
+    <complexContent>
+     <extension base="tns1:WebServiceFault">
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="ProjectMemberSoapRow">
+    <sequence>
+     <element name="email" nillable="true" type="xsd:string"/>
+     <element name="fullName" nillable="true" type="xsd:string"/>
+     <element name="userName" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="ProjectMemberSoapList">
+    <sequence>
+     <element name="dataRows" nillable="true" type="impl:ArrayOf_tns1_ProjectMemberSoapRow"/>
+    </sequence>
+   </complexType>
+   <complexType name="CommentSoapRow">
+    <sequence>
+     <element name="createdBy" nillable="true" type="xsd:string"/>
+     <element name="createdByFullname" nillable="true" type="xsd:string"/>
+     <element name="dateCreated" nillable="true" type="xsd:dateTime"/>
+     <element name="description" nillable="true" type="xsd:string"/>
+     <element name="id" nillable="true" type="xsd:string"/>
+     <element name="transactionId" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="CommentSoapList">
+    <sequence>
+     <element name="dataRows" nillable="true" type="impl:ArrayOf_tns1_CommentSoapRow"/>
+    </sequence>
+   </complexType>
+   <complexType name="AssociationSoapRow">
+    <sequence>
+     <element name="createdBy" nillable="true" type="xsd:string"/>
+     <element name="creatorFullName" nillable="true" type="xsd:string"/>
+     <element name="dateCreated" nillable="true" type="xsd:dateTime"/>
+     <element name="dateLastModified" nillable="true" type="xsd:dateTime"/>
+     <element name="description" nillable="true" type="xsd:string"/>
+     <element name="originId" nillable="true" type="xsd:string"/>
+     <element name="originTitle" nillable="true" type="xsd:string"/>
+     <element name="originVersion" type="xsd:int"/>
+     <element name="targetId" nillable="true" type="xsd:string"/>
+     <element name="targetTitle" nillable="true" type="xsd:string"/>
+     <element name="targetVersion" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="AssociationSoapList">
+    <sequence>
+     <element name="dataRows" nillable="true" type="impl:ArrayOf_tns1_AssociationSoapRow"/>
+    </sequence>
+   </complexType>
+   <complexType name="AuditHistorySoapRow">
+    <sequence>
+     <element name="comment" nillable="true" type="xsd:string"/>
+     <element name="dateModified" nillable="true" type="xsd:dateTime"/>
+     <element name="modifiedBy" nillable="true" type="xsd:string"/>
+     <element name="modifierFullName" nillable="true" type="xsd:string"/>
+     <element name="newValue" nillable="true" type="xsd:string"/>
+     <element name="oldValue" nillable="true" type="xsd:string"/>
+     <element name="operation" nillable="true" type="xsd:string"/>
+     <element name="propertyName" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="AuditHistorySoapList">
+    <sequence>
+     <element name="dataRows" nillable="true" type="impl:ArrayOf_tns1_AuditHistorySoapRow"/>
+    </sequence>
+   </complexType>
+   <complexType name="GroupSoapRow">
+    <sequence>
+     <element name="description" nillable="true" type="xsd:string"/>
+     <element name="fullName" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="GroupSoapList">
+    <sequence>
+     <element name="dataRows" nillable="true" type="impl:ArrayOf_tns1_GroupSoapRow"/>
+    </sequence>
+   </complexType>
+   <complexType name="Group2SoapRow">
+    <sequence>
+     <element name="description" nillable="true" type="xsd:string"/>
+     <element name="fullName" nillable="true" type="xsd:string"/>
+     <element name="id" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="Group2SoapList">
+    <sequence>
+     <element name="dataRows" nillable="true" type="impl:ArrayOf_tns1_Group2SoapRow"/>
+    </sequence>
+   </complexType>
+   <complexType name="Attachment2SoapRow">
+    <sequence>
+     <element name="attachmentId" nillable="true" type="xsd:string"/>
+     <element name="createdBy" nillable="true" type="xsd:string"/>
+     <element name="createdByFullname" nillable="true" type="xsd:string"/>
+     <element name="dateCreated" nillable="true" type="xsd:dateTime"/>
+     <element name="fileName" nillable="true" type="xsd:string"/>
+     <element name="fileSize" nillable="true" type="xsd:string"/>
+     <element name="mimetype" nillable="true" type="xsd:string"/>
+     <element name="rawFileId" nillable="true" type="xsd:string"/>
+     <element name="storedFileId" nillable="true" type="xsd:string"/>
+     <element name="transactionId" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="Attachment2SoapList">
+    <sequence>
+     <element name="dataRows" nillable="true" type="impl:ArrayOf_tns1_Attachment2SoapRow"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema targetNamespace="http://schema.open.collab.net/sfee50/soap50/service" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://schema.open.collab.net/sfee50/soap50/type"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="ArrayOf_xsd_string">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="xsd:string[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_tns1_ProjectSoapRow">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:ProjectSoapRow[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_tns1_VersionInformationSoapRow">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:VersionInformationSoapRow[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_tns1_AttachmentSoapRow">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:AttachmentSoapRow[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_tns1_UserSoapRow">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:UserSoapRow[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_tns1_ProjectMemberSoapRow">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:ProjectMemberSoapRow[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_tns1_CommentSoapRow">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:CommentSoapRow[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_tns1_AssociationSoapRow">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:AssociationSoapRow[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_tns1_AuditHistorySoapRow">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:AuditHistorySoapRow[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_tns1_GroupSoapRow">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:GroupSoapRow[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_tns1_Group2SoapRow">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:Group2SoapRow[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_tns1_Attachment2SoapRow">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:Attachment2SoapRow[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="listProjectAdminsRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="projectId" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getVersionRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getProjectListRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getGroupList2Response">
+
+      <wsdl:part name="getGroupList2Return" type="tns1:Group2SoapList"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getProjectDataResponse">
+
+      <wsdl:part name="getProjectDataReturn" type="tns1:ProjectSoapDO"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="loginAnonymousResponse">
+
+      <wsdl:part name="loginAnonymousReturn" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="createGroupRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="fullName" type="soapenc:string"/>
+
+      <wsdl:part name="description" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getProjectQuotaRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="projectId" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="hasPermissionResponse">
+
+      <wsdl:part name="hasPermissionReturn" type="xsd:boolean"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="SystemFault">
+
+      <wsdl:part name="fault" type="tns1:SystemFault"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="addProjectMemberRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="projectId" type="soapenc:string"/>
+
+      <wsdl:part name="userName" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="createUserRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="userName" type="soapenc:string"/>
+
+      <wsdl:part name="email" type="soapenc:string"/>
+
+      <wsdl:part name="fullName" type="soapenc:string"/>
+
+      <wsdl:part name="locale" type="soapenc:string"/>
+
+      <wsdl:part name="timeZone" type="soapenc:string"/>
+
+      <wsdl:part name="isSuperUser" type="xsd:boolean"/>
+
+      <wsdl:part name="isRestrictedUser" type="xsd:boolean"/>
+
+      <wsdl:part name="password" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getGroupDataRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="groupId" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getProjectDiskUsageResponse">
+
+      <wsdl:part name="getProjectDiskUsageReturn" type="xsd:long"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAuditHistoryListResponse">
+
+      <wsdl:part name="getAuditHistoryListReturn" type="tns1:AuditHistorySoapList"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteAssociationResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="getProjectsForUserResponse">
+
+      <wsdl:part name="getProjectsForUserReturn" type="tns1:ProjectSoapList"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="listAttachments2Request">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="objectId" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="invalidateEmailTemplateResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="setProjectAccessLevelRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="projectId" type="soapenc:string"/>
+
+      <wsdl:part name="accessLevel" type="xsd:int"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="listTemplatesRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="IllegalUserModificationFault">
+
+      <wsdl:part name="fault" type="tns1:IllegalUserModificationFault"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteProjectRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="projectId" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getUserDataRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="username" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="RemoveOnlyProjectAdminFault">
+
+      <wsdl:part name="fault" type="tns1:RemoveOnlyProjectAdminFault"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="LastSuperUserFault">
+
+      <wsdl:part name="fault" type="tns1:LastSuperUserFault"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getProjectListForUserRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="userId" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAssociationListResponse">
+
+      <wsdl:part name="getAssociationListReturn" type="tns1:AssociationSoapList"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getProjectAccessLevelResponse">
+
+      <wsdl:part name="getProjectAccessLevelReturn" type="xsd:int"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="removeGroupMemberRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="groupId" type="soapenc:string"/>
+
+      <wsdl:part name="userName" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getApiVersionResponse">
+
+      <wsdl:part name="getApiVersionReturn" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getUserProjectListRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="listProjectAdminsResponse">
+
+      <wsdl:part name="listProjectAdminsReturn" type="tns1:UserSoapList"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="createAssociationResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="getUserListResponse">
+
+      <wsdl:part name="getUserListReturn" type="tns1:UserSoapList"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="addGroupMemberResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="getProjectMemberListRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="projectId" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="logoffResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="getProjectsForUserRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="userId" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="removeProjectMemberResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="getProjectListForUserResponse">
+
+      <wsdl:part name="getProjectListForUserReturn" type="tns1:ProjectSoapList"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="createOrReplaceProjectTemplateRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="projectId" type="soapenc:string"/>
+
+      <wsdl:part name="title" type="soapenc:string"/>
+
+      <wsdl:part name="description" type="soapenc:string"/>
+
+      <wsdl:part name="contentChoices" type="impl:ArrayOf_xsd_string"/>
+
+      <wsdl:part name="templateId" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteAttachmentResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="getGroupList2Request">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="filter" type="tns1:SoapFilter"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="findProjectsRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="queryString" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAuditHistoryList2Request">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="objectId" type="soapenc:string"/>
+
+      <wsdl:part name="includeDerivedChanges" type="xsd:boolean"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="loginRequest">
+
+      <wsdl:part name="userName" type="soapenc:string"/>
+
+      <wsdl:part name="password" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getUserProjectListResponse">
+
+      <wsdl:part name="getUserProjectListReturn" type="tns1:ProjectSoapList"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getConfigurationValueResponse">
+
+      <wsdl:part name="getConfigurationValueReturn" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getCommentListResponse">
+
+      <wsdl:part name="getCommentListReturn" type="tns1:CommentSoapList"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getProjectQuotaResponse">
+
+      <wsdl:part name="getProjectQuotaReturn" type="xsd:long"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getUserGroupListResponse">
+
+      <wsdl:part name="getUserGroupListReturn" type="tns1:GroupSoapList"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="createOrReplaceProjectTemplateResponse">
+
+      <wsdl:part name="createOrReplaceProjectTemplateReturn" type="tns1:ProjectSoapDO"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="loginWithTokenResponse">
+
+      <wsdl:part name="loginWithTokenReturn" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteAssociationRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="originId" type="soapenc:string"/>
+
+      <wsdl:part name="targetId" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="setGroupDataRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="groupData" type="tns1:GroupSoapDO"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="findUsersResponse">
+
+      <wsdl:part name="findUsersReturn" type="tns1:UserSoapList"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="invalidateResourceBundleCacheRequest">
+
+      <wsdl:part name="bundle" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="addProjectMemberResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="getVersionResponse">
+
+      <wsdl:part name="getVersionReturn" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getUserGroupListRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="username" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="reindexObjectResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="SearchQuerySyntaxFault">
+
+      <wsdl:part name="fault" type="tns1:SearchQuerySyntaxFault"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="VersionMismatchFault">
+
+      <wsdl:part name="fault" type="tns1:VersionMismatchFault"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="setProjectQuotaResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="hasPermissionRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="projectId" type="soapenc:string"/>
+
+      <wsdl:part name="operationString" type="soapenc:string"/>
+
+      <wsdl:part name="objectId" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAuditHistoryListRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="objectId" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteAttachmentRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="objectId" type="soapenc:string"/>
+
+      <wsdl:part name="attachmentId" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="createAssociationRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="originId" type="soapenc:string"/>
+
+      <wsdl:part name="targetId" type="soapenc:string"/>
+
+      <wsdl:part name="description" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getProjectGroupListRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="projectId" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="UserLimitExceededFault">
+
+      <wsdl:part name="fault" type="tns1:UserLimitExceededFault"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="reindexObjectRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="objectId" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="InvalidSessionFault">
+
+      <wsdl:part name="fault" type="tns1:InvalidSessionFault"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getGroupDataResponse">
+
+      <wsdl:part name="getGroupDataReturn" type="tns1:GroupSoapDO"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getGroupListResponse">
+
+      <wsdl:part name="getGroupListReturn" type="tns1:GroupSoapList"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="LoginFault">
+
+      <wsdl:part name="fault" type="tns1:LoginFault"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getProjectDataRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="projectId" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="IllegalArgumentFault">
+
+      <wsdl:part name="fault" type="tns1:IllegalArgumentFault"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getProjectMemberListResponse">
+
+      <wsdl:part name="getProjectMemberListReturn" type="tns1:ProjectMemberSoapList"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="createProjectRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="name" type="soapenc:string"/>
+
+      <wsdl:part name="title" type="soapenc:string"/>
+
+      <wsdl:part name="description" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="removeGroupMemberResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="getProjectListResponse">
+
+      <wsdl:part name="getProjectListReturn" type="tns1:ProjectSoapList"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="removeProjectMemberRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="projectId" type="soapenc:string"/>
+
+      <wsdl:part name="userName" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="setUserDataResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="setGroupDataResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="NoSuchObjectFault">
+
+      <wsdl:part name="fault" type="tns1:NoSuchObjectFault"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="createProjectFromTemplateRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="templateId" type="soapenc:string"/>
+
+      <wsdl:part name="name" type="soapenc:string"/>
+
+      <wsdl:part name="title" type="soapenc:string"/>
+
+      <wsdl:part name="description" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="setProjectQuotaRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="projectId" type="soapenc:string"/>
+
+      <wsdl:part name="quota" type="xsd:long"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getVersionInformationListResponse">
+
+      <wsdl:part name="getVersionInformationListReturn" type="tns1:VersionInformationSoapList"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="invalidateResourceBundleCacheResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="loginWithTokenRequest">
+
+      <wsdl:part name="username" type="soapenc:string"/>
+
+      <wsdl:part name="oneTimeToken" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAssociationListRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="objectId" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="ActivationUserAlreadyRemovedFault">
+
+      <wsdl:part name="fault" type="tns1:ActivationUserAlreadyRemovedFault"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="loginResponse">
+
+      <wsdl:part name="loginReturn" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="listAttachmentsResponse">
+
+      <wsdl:part name="listAttachmentsReturn" type="tns1:AttachmentSoapList"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="ObjectAlreadyExistsFault">
+
+      <wsdl:part name="fault" type="tns1:ObjectAlreadyExistsFault"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="listAttachmentsRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="objectId" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getProjectDiskUsageRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="projectId" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getVersionInformationListRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="folderId" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteGroupResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="listAttachments2Response">
+
+      <wsdl:part name="listAttachments2Return" type="tns1:Attachment2SoapList"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteProjectResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="PermissionDeniedFault">
+
+      <wsdl:part name="fault" type="tns1:PermissionDeniedFault"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="loginAnonymousRequest">
+
+      <wsdl:part name="anonSharedSecret" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="createProjectResponse">
+
+      <wsdl:part name="createProjectReturn" type="tns1:ProjectSoapDO"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getUserDataResponse">
+
+      <wsdl:part name="getUserDataReturn" type="tns1:UserSoapDO"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAuditHistoryList2Response">
+
+      <wsdl:part name="getAuditHistoryList2Return" type="tns1:AuditHistorySoapList"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteGroupRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="groupId" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="createGroupResponse">
+
+      <wsdl:part name="createGroupReturn" type="tns1:GroupSoapDO"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getUserListRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="filter" type="tns1:SoapFilter"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="logoffRequest">
+
+      <wsdl:part name="userName" type="soapenc:string"/>
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="invalidateEmailTemplateRequest">
+
+      <wsdl:part name="templateName" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getGroupListRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="filter" type="tns1:SoapFilter"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getProjectAccessLevelRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="projectId" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="createProjectFromTemplateResponse">
+
+      <wsdl:part name="createProjectFromTemplateReturn" type="tns1:ProjectSoapDO"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="findUsersRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="queryString" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getProjectGroupListResponse">
+
+      <wsdl:part name="getProjectGroupListReturn" type="tns1:GroupSoapList"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="findProjectsResponse">
+
+      <wsdl:part name="findProjectsReturn" type="tns1:ProjectSoapList"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="isHostedModeResponse">
+
+      <wsdl:part name="isHostedModeReturn" type="xsd:boolean"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="keepAliveResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="setProjectAccessLevelResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="isHostedModeRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getCommentListRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="objectId" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="addGroupMemberRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="groupId" type="soapenc:string"/>
+
+      <wsdl:part name="userName" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getActiveGroupMembersRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="groupId" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getApiVersionRequest">
+
+   </wsdl:message>
+
+   <wsdl:message name="listTemplatesResponse">
+
+      <wsdl:part name="listTemplatesReturn" type="tns1:ProjectSoapList"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="createUserResponse">
+
+      <wsdl:part name="createUserReturn" type="tns1:UserSoapDO"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getActiveGroupMembersResponse">
+
+      <wsdl:part name="getActiveGroupMembersReturn" type="tns1:UserSoapList"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="setUserDataRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="userData" type="tns1:UserSoapDO"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getConfigurationValueRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+      <wsdl:part name="keyValue" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="keepAliveRequest">
+
+      <wsdl:part name="sessionId" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="CollabNetSoap">
+
+      <wsdl:operation name="getVersion" parameterOrder="sessionId">
+
+         <wsdl:input message="impl:getVersionRequest" name="getVersionRequest"/>
+
+         <wsdl:output message="impl:getVersionResponse" name="getVersionResponse"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="createGroup" parameterOrder="sessionId fullName description">
+
+         <wsdl:input message="impl:createGroupRequest" name="createGroupRequest"/>
+
+         <wsdl:output message="impl:createGroupResponse" name="createGroupResponse"/>
+
+         <wsdl:fault message="impl:ObjectAlreadyExistsFault" name="ObjectAlreadyExistsFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+         <wsdl:fault message="impl:IllegalArgumentFault" name="IllegalArgumentFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setUserData" parameterOrder="sessionId userData">
+
+         <wsdl:input message="impl:setUserDataRequest" name="setUserDataRequest"/>
+
+         <wsdl:output message="impl:setUserDataResponse" name="setUserDataResponse"/>
+
+         <wsdl:fault message="impl:IllegalUserModificationFault" name="IllegalUserModificationFault"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:ActivationUserAlreadyRemovedFault" name="ActivationUserAlreadyRemovedFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:VersionMismatchFault" name="VersionMismatchFault"/>
+
+         <wsdl:fault message="impl:LastSuperUserFault" name="LastSuperUserFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="hasPermission" parameterOrder="sessionId projectId operationString objectId">
+
+         <wsdl:input message="impl:hasPermissionRequest" name="hasPermissionRequest"/>
+
+         <wsdl:output message="impl:hasPermissionResponse" name="hasPermissionResponse"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+         <wsdl:fault message="impl:IllegalArgumentFault" name="IllegalArgumentFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getUserData" parameterOrder="sessionId username">
+
+         <wsdl:input message="impl:getUserDataRequest" name="getUserDataRequest"/>
+
+         <wsdl:output message="impl:getUserDataResponse" name="getUserDataResponse"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:IllegalArgumentFault" name="IllegalArgumentFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="keepAlive" parameterOrder="sessionId">
+
+         <wsdl:input message="impl:keepAliveRequest" name="keepAliveRequest"/>
+
+         <wsdl:output message="impl:keepAliveResponse" name="keepAliveResponse"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="login" parameterOrder="userName password">
+
+         <wsdl:input message="impl:loginRequest" name="loginRequest"/>
+
+         <wsdl:output message="impl:loginResponse" name="loginResponse"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+         <wsdl:fault message="impl:LoginFault" name="LoginFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="createUser" parameterOrder="sessionId userName email fullName locale timeZone isSuperUser isRestrictedUser password">
+
+         <wsdl:input message="impl:createUserRequest" name="createUserRequest"/>
+
+         <wsdl:output message="impl:createUserResponse" name="createUserResponse"/>
+
+         <wsdl:fault message="impl:UserLimitExceededFault" name="UserLimitExceededFault"/>
+
+         <wsdl:fault message="impl:ObjectAlreadyExistsFault" name="ObjectAlreadyExistsFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+         <wsdl:fault message="impl:IllegalArgumentFault" name="IllegalArgumentFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="createProject" parameterOrder="sessionId name title description">
+
+         <wsdl:input message="impl:createProjectRequest" name="createProjectRequest"/>
+
+         <wsdl:output message="impl:createProjectResponse" name="createProjectResponse"/>
+
+         <wsdl:fault message="impl:ObjectAlreadyExistsFault" name="ObjectAlreadyExistsFault"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:IllegalArgumentFault" name="IllegalArgumentFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="createProjectFromTemplate" parameterOrder="sessionId templateId name title description">
+
+         <wsdl:input message="impl:createProjectFromTemplateRequest" name="createProjectFromTemplateRequest"/>
+
+         <wsdl:output message="impl:createProjectFromTemplateResponse" name="createProjectFromTemplateResponse"/>
+
+         <wsdl:fault message="impl:ObjectAlreadyExistsFault" name="ObjectAlreadyExistsFault"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:IllegalArgumentFault" name="IllegalArgumentFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getProjectData" parameterOrder="sessionId projectId">
+
+         <wsdl:input message="impl:getProjectDataRequest" name="getProjectDataRequest"/>
+
+         <wsdl:output message="impl:getProjectDataResponse" name="getProjectDataResponse"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getProjectAccessLevel" parameterOrder="sessionId projectId">
+
+         <wsdl:input message="impl:getProjectAccessLevelRequest" name="getProjectAccessLevelRequest"/>
+
+         <wsdl:output message="impl:getProjectAccessLevelResponse" name="getProjectAccessLevelResponse"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="isHostedMode" parameterOrder="sessionId">
+
+         <wsdl:input message="impl:isHostedModeRequest" name="isHostedModeRequest"/>
+
+         <wsdl:output message="impl:isHostedModeResponse" name="isHostedModeResponse"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="createOrReplaceProjectTemplate" parameterOrder="sessionId projectId title description contentChoices templateId">
+
+         <wsdl:input message="impl:createOrReplaceProjectTemplateRequest" name="createOrReplaceProjectTemplateRequest"/>
+
+         <wsdl:output message="impl:createOrReplaceProjectTemplateResponse" name="createOrReplaceProjectTemplateResponse"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:IllegalArgumentFault" name="IllegalArgumentFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="listTemplates" parameterOrder="sessionId">
+
+         <wsdl:input message="impl:listTemplatesRequest" name="listTemplatesRequest"/>
+
+         <wsdl:output message="impl:listTemplatesResponse" name="listTemplatesResponse"/>
+
+         <wsdl:fault message="impl:ObjectAlreadyExistsFault" name="ObjectAlreadyExistsFault"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deleteProject" parameterOrder="sessionId projectId">
+
+         <wsdl:input message="impl:deleteProjectRequest" name="deleteProjectRequest"/>
+
+         <wsdl:output message="impl:deleteProjectResponse" name="deleteProjectResponse"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addProjectMember" parameterOrder="sessionId projectId userName">
+
+         <wsdl:input message="impl:addProjectMemberRequest" name="addProjectMemberRequest"/>
+
+         <wsdl:output message="impl:addProjectMemberResponse" name="addProjectMemberResponse"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="removeProjectMember" parameterOrder="sessionId projectId userName">
+
+         <wsdl:input message="impl:removeProjectMemberRequest" name="removeProjectMemberRequest"/>
+
+         <wsdl:output message="impl:removeProjectMemberResponse" name="removeProjectMemberResponse"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+         <wsdl:fault message="impl:RemoveOnlyProjectAdminFault" name="RemoveOnlyProjectAdminFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getVersionInformationList" parameterOrder="sessionId folderId">
+
+         <wsdl:input message="impl:getVersionInformationListRequest" name="getVersionInformationListRequest"/>
+
+         <wsdl:output message="impl:getVersionInformationListResponse" name="getVersionInformationListResponse"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getProjectsForUser" parameterOrder="sessionId userId">
+
+         <wsdl:input message="impl:getProjectsForUserRequest" name="getProjectsForUserRequest"/>
+
+         <wsdl:output message="impl:getProjectsForUserResponse" name="getProjectsForUserResponse"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getProjectList" parameterOrder="sessionId">
+
+         <wsdl:input message="impl:getProjectListRequest" name="getProjectListRequest"/>
+
+         <wsdl:output message="impl:getProjectListResponse" name="getProjectListResponse"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setProjectQuota" parameterOrder="sessionId projectId quota">
+
+         <wsdl:input message="impl:setProjectQuotaRequest" name="setProjectQuotaRequest"/>
+
+         <wsdl:output message="impl:setProjectQuotaResponse" name="setProjectQuotaResponse"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getProjectQuota" parameterOrder="sessionId projectId">
+
+         <wsdl:input message="impl:getProjectQuotaRequest" name="getProjectQuotaRequest"/>
+
+         <wsdl:output message="impl:getProjectQuotaResponse" name="getProjectQuotaResponse"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getProjectListForUser" parameterOrder="sessionId userId">
+
+         <wsdl:input message="impl:getProjectListForUserRequest" name="getProjectListForUserRequest"/>
+
+         <wsdl:output message="impl:getProjectListForUserResponse" name="getProjectListForUserResponse"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="invalidateResourceBundleCache" parameterOrder="bundle">
+
+         <wsdl:input message="impl:invalidateResourceBundleCacheRequest" name="invalidateResourceBundleCacheRequest"/>
+
+         <wsdl:output message="impl:invalidateResourceBundleCacheResponse" name="invalidateResourceBundleCacheResponse"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="invalidateEmailTemplate" parameterOrder="templateName">
+
+         <wsdl:input message="impl:invalidateEmailTemplateRequest" name="invalidateEmailTemplateRequest"/>
+
+         <wsdl:output message="impl:invalidateEmailTemplateResponse" name="invalidateEmailTemplateResponse"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getGroupData" parameterOrder="sessionId groupId">
+
+         <wsdl:input message="impl:getGroupDataRequest" name="getGroupDataRequest"/>
+
+         <wsdl:output message="impl:getGroupDataResponse" name="getGroupDataResponse"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setGroupData" parameterOrder="sessionId groupData">
+
+         <wsdl:input message="impl:setGroupDataRequest" name="setGroupDataRequest"/>
+
+         <wsdl:output message="impl:setGroupDataResponse" name="setGroupDataResponse"/>
+
+         <wsdl:fault message="impl:ObjectAlreadyExistsFault" name="ObjectAlreadyExistsFault"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:IllegalArgumentFault" name="IllegalArgumentFault"/>
+
+         <wsdl:fault message="impl:VersionMismatchFault" name="VersionMismatchFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deleteGroup" parameterOrder="sessionId groupId">
+
+         <wsdl:input message="impl:deleteGroupRequest" name="deleteGroupRequest"/>
+
+         <wsdl:output message="impl:deleteGroupResponse" name="deleteGroupResponse"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addGroupMember" parameterOrder="sessionId groupId userName">
+
+         <wsdl:input message="impl:addGroupMemberRequest" name="addGroupMemberRequest"/>
+
+         <wsdl:output message="impl:addGroupMemberResponse" name="addGroupMemberResponse"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="removeGroupMember" parameterOrder="sessionId groupId userName">
+
+         <wsdl:input message="impl:removeGroupMemberRequest" name="removeGroupMemberRequest"/>
+
+         <wsdl:output message="impl:removeGroupMemberResponse" name="removeGroupMemberResponse"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="listAttachments" parameterOrder="sessionId objectId">
+
+         <wsdl:input message="impl:listAttachmentsRequest" name="listAttachmentsRequest"/>
+
+         <wsdl:output message="impl:listAttachmentsResponse" name="listAttachmentsResponse"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getUserList" parameterOrder="sessionId filter">
+
+         <wsdl:input message="impl:getUserListRequest" name="getUserListRequest"/>
+
+         <wsdl:output message="impl:getUserListResponse" name="getUserListResponse"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+         <wsdl:fault message="impl:IllegalArgumentFault" name="IllegalArgumentFault"/>
+
+         <wsdl:fault message="impl:SearchQuerySyntaxFault" name="SearchQuerySyntaxFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="findUsers" parameterOrder="sessionId queryString">
+
+         <wsdl:input message="impl:findUsersRequest" name="findUsersRequest"/>
+
+         <wsdl:output message="impl:findUsersResponse" name="findUsersResponse"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+         <wsdl:fault message="impl:IllegalArgumentFault" name="IllegalArgumentFault"/>
+
+         <wsdl:fault message="impl:SearchQuerySyntaxFault" name="SearchQuerySyntaxFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deleteAttachment" parameterOrder="sessionId objectId attachmentId">
+
+         <wsdl:input message="impl:deleteAttachmentRequest" name="deleteAttachmentRequest"/>
+
+         <wsdl:output message="impl:deleteAttachmentResponse" name="deleteAttachmentResponse"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getProjectDiskUsage" parameterOrder="sessionId projectId">
+
+         <wsdl:input message="impl:getProjectDiskUsageRequest" name="getProjectDiskUsageRequest"/>
+
+         <wsdl:output message="impl:getProjectDiskUsageResponse" name="getProjectDiskUsageResponse"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getActiveGroupMembers" parameterOrder="sessionId groupId">
+
+         <wsdl:input message="impl:getActiveGroupMembersRequest" name="getActiveGroupMembersRequest"/>
+
+         <wsdl:output message="impl:getActiveGroupMembersResponse" name="getActiveGroupMembersResponse"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="logoff" parameterOrder="userName sessionId">
+
+         <wsdl:input message="impl:logoffRequest" name="logoffRequest"/>
+
+         <wsdl:output message="impl:logoffResponse" name="logoffResponse"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="loginWithToken" parameterOrder="username oneTimeToken">
+
+         <wsdl:input message="impl:loginWithTokenRequest" name="loginWithTokenRequest"/>
+
+         <wsdl:output message="impl:loginWithTokenResponse" name="loginWithTokenResponse"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+         <wsdl:fault message="impl:LoginFault" name="LoginFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getApiVersion">
+
+         <wsdl:input message="impl:getApiVersionRequest" name="getApiVersionRequest"/>
+
+         <wsdl:output message="impl:getApiVersionResponse" name="getApiVersionResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getUserProjectList" parameterOrder="sessionId">
+
+         <wsdl:input message="impl:getUserProjectListRequest" name="getUserProjectListRequest"/>
+
+         <wsdl:output message="impl:getUserProjectListResponse" name="getUserProjectListResponse"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="findProjects" parameterOrder="sessionId queryString">
+
+         <wsdl:input message="impl:findProjectsRequest" name="findProjectsRequest"/>
+
+         <wsdl:output message="impl:findProjectsResponse" name="findProjectsResponse"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:IllegalArgumentFault" name="IllegalArgumentFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+         <wsdl:fault message="impl:SearchQuerySyntaxFault" name="SearchQuerySyntaxFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getProjectMemberList" parameterOrder="sessionId projectId">
+
+         <wsdl:input message="impl:getProjectMemberListRequest" name="getProjectMemberListRequest"/>
+
+         <wsdl:output message="impl:getProjectMemberListResponse" name="getProjectMemberListResponse"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setProjectAccessLevel" parameterOrder="sessionId projectId accessLevel">
+
+         <wsdl:input message="impl:setProjectAccessLevelRequest" name="setProjectAccessLevelRequest"/>
+
+         <wsdl:output message="impl:setProjectAccessLevelResponse" name="setProjectAccessLevelResponse"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:IllegalArgumentFault" name="IllegalArgumentFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getCommentList" parameterOrder="sessionId objectId">
+
+         <wsdl:input message="impl:getCommentListRequest" name="getCommentListRequest"/>
+
+         <wsdl:output message="impl:getCommentListResponse" name="getCommentListResponse"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="createAssociation" parameterOrder="sessionId originId targetId description">
+
+         <wsdl:input message="impl:createAssociationRequest" name="createAssociationRequest"/>
+
+         <wsdl:output message="impl:createAssociationResponse" name="createAssociationResponse"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:IllegalArgumentFault" name="IllegalArgumentFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deleteAssociation" parameterOrder="sessionId originId targetId">
+
+         <wsdl:input message="impl:deleteAssociationRequest" name="deleteAssociationRequest"/>
+
+         <wsdl:output message="impl:deleteAssociationResponse" name="deleteAssociationResponse"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:IllegalArgumentFault" name="IllegalArgumentFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getAssociationList" parameterOrder="sessionId objectId">
+
+         <wsdl:input message="impl:getAssociationListRequest" name="getAssociationListRequest"/>
+
+         <wsdl:output message="impl:getAssociationListResponse" name="getAssociationListResponse"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getAuditHistoryList" parameterOrder="sessionId objectId">
+
+         <wsdl:input message="impl:getAuditHistoryListRequest" name="getAuditHistoryListRequest"/>
+
+         <wsdl:output message="impl:getAuditHistoryListResponse" name="getAuditHistoryListResponse"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+         <wsdl:fault message="impl:IllegalArgumentFault" name="IllegalArgumentFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="reindexObject" parameterOrder="sessionId objectId">
+
+         <wsdl:input message="impl:reindexObjectRequest" name="reindexObjectRequest"/>
+
+         <wsdl:output message="impl:reindexObjectResponse" name="reindexObjectResponse"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="loginAnonymous" parameterOrder="anonSharedSecret">
+
+         <wsdl:input message="impl:loginAnonymousRequest" name="loginAnonymousRequest"/>
+
+         <wsdl:output message="impl:loginAnonymousResponse" name="loginAnonymousResponse"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+         <wsdl:fault message="impl:LoginFault" name="LoginFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getProjectGroupList" parameterOrder="sessionId projectId">
+
+         <wsdl:input message="impl:getProjectGroupListRequest" name="getProjectGroupListRequest"/>
+
+         <wsdl:output message="impl:getProjectGroupListResponse" name="getProjectGroupListResponse"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getGroupList2" parameterOrder="sessionId filter">
+
+         <wsdl:input message="impl:getGroupList2Request" name="getGroupList2Request"/>
+
+         <wsdl:output message="impl:getGroupList2Response" name="getGroupList2Response"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+         <wsdl:fault message="impl:IllegalArgumentFault" name="IllegalArgumentFault"/>
+
+         <wsdl:fault message="impl:SearchQuerySyntaxFault" name="SearchQuerySyntaxFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getGroupList" parameterOrder="sessionId filter">
+
+         <wsdl:input message="impl:getGroupListRequest" name="getGroupListRequest"/>
+
+         <wsdl:output message="impl:getGroupListResponse" name="getGroupListResponse"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+         <wsdl:fault message="impl:IllegalArgumentFault" name="IllegalArgumentFault"/>
+
+         <wsdl:fault message="impl:SearchQuerySyntaxFault" name="SearchQuerySyntaxFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getUserGroupList" parameterOrder="sessionId username">
+
+         <wsdl:input message="impl:getUserGroupListRequest" name="getUserGroupListRequest"/>
+
+         <wsdl:output message="impl:getUserGroupListResponse" name="getUserGroupListResponse"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getConfigurationValue" parameterOrder="sessionId keyValue">
+
+         <wsdl:input message="impl:getConfigurationValueRequest" name="getConfigurationValueRequest"/>
+
+         <wsdl:output message="impl:getConfigurationValueResponse" name="getConfigurationValueResponse"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="listProjectAdmins" parameterOrder="sessionId projectId">
+
+         <wsdl:input message="impl:listProjectAdminsRequest" name="listProjectAdminsRequest"/>
+
+         <wsdl:output message="impl:listProjectAdminsResponse" name="listProjectAdminsResponse"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="listAttachments2" parameterOrder="sessionId objectId">
+
+         <wsdl:input message="impl:listAttachments2Request" name="listAttachments2Request"/>
+
+         <wsdl:output message="impl:listAttachments2Response" name="listAttachments2Response"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getAuditHistoryList2" parameterOrder="sessionId objectId includeDerivedChanges">
+
+         <wsdl:input message="impl:getAuditHistoryList2Request" name="getAuditHistoryList2Request"/>
+
+         <wsdl:output message="impl:getAuditHistoryList2Response" name="getAuditHistoryList2Response"/>
+
+         <wsdl:fault message="impl:NoSuchObjectFault" name="NoSuchObjectFault"/>
+
+         <wsdl:fault message="impl:InvalidSessionFault" name="InvalidSessionFault"/>
+
+         <wsdl:fault message="impl:PermissionDeniedFault" name="PermissionDeniedFault"/>
+
+         <wsdl:fault message="impl:SystemFault" name="SystemFault"/>
+
+         <wsdl:fault message="impl:IllegalArgumentFault" name="IllegalArgumentFault"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="CollabNetSoapBinding" type="impl:CollabNetSoap">
+
+      <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="getVersion">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getVersionRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getVersionResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="createGroup">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="createGroupRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="createGroupResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="ObjectAlreadyExistsFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="ObjectAlreadyExistsFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="IllegalArgumentFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="IllegalArgumentFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setUserData">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="setUserDataRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="setUserDataResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="IllegalUserModificationFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="IllegalUserModificationFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="ActivationUserAlreadyRemovedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="ActivationUserAlreadyRemovedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="VersionMismatchFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="VersionMismatchFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="LastSuperUserFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="LastSuperUserFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="hasPermission">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="hasPermissionRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="hasPermissionResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="IllegalArgumentFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="IllegalArgumentFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getUserData">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getUserDataRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getUserDataResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="IllegalArgumentFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="IllegalArgumentFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="keepAlive">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="keepAliveRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="keepAliveResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="login">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="loginRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="loginResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="LoginFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="LoginFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="createUser">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="createUserRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="createUserResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="UserLimitExceededFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="UserLimitExceededFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="ObjectAlreadyExistsFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="ObjectAlreadyExistsFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="IllegalArgumentFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="IllegalArgumentFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="createProject">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="createProjectRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="createProjectResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="ObjectAlreadyExistsFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="ObjectAlreadyExistsFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="IllegalArgumentFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="IllegalArgumentFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="createProjectFromTemplate">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="createProjectFromTemplateRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="createProjectFromTemplateResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="ObjectAlreadyExistsFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="ObjectAlreadyExistsFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="IllegalArgumentFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="IllegalArgumentFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getProjectData">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getProjectDataRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getProjectDataResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getProjectAccessLevel">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getProjectAccessLevelRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getProjectAccessLevelResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="isHostedMode">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="isHostedModeRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="isHostedModeResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="createOrReplaceProjectTemplate">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="createOrReplaceProjectTemplateRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="createOrReplaceProjectTemplateResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="IllegalArgumentFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="IllegalArgumentFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="listTemplates">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="listTemplatesRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="listTemplatesResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="ObjectAlreadyExistsFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="ObjectAlreadyExistsFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deleteProject">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="deleteProjectRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="deleteProjectResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addProjectMember">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="addProjectMemberRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="addProjectMemberResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="removeProjectMember">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="removeProjectMemberRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="removeProjectMemberResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="RemoveOnlyProjectAdminFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoveOnlyProjectAdminFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getVersionInformationList">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getVersionInformationListRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getVersionInformationListResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getProjectsForUser">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getProjectsForUserRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getProjectsForUserResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getProjectList">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getProjectListRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getProjectListResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setProjectQuota">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="setProjectQuotaRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="setProjectQuotaResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getProjectQuota">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getProjectQuotaRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getProjectQuotaResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getProjectListForUser">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getProjectListForUserRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getProjectListForUserResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="invalidateResourceBundleCache">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="invalidateResourceBundleCacheRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="invalidateResourceBundleCacheResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="invalidateEmailTemplate">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="invalidateEmailTemplateRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="invalidateEmailTemplateResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getGroupData">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getGroupDataRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getGroupDataResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setGroupData">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="setGroupDataRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="setGroupDataResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="ObjectAlreadyExistsFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="ObjectAlreadyExistsFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="IllegalArgumentFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="IllegalArgumentFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="VersionMismatchFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="VersionMismatchFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deleteGroup">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="deleteGroupRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="deleteGroupResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addGroupMember">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="addGroupMemberRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="addGroupMemberResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="removeGroupMember">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="removeGroupMemberRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="removeGroupMemberResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="listAttachments">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="listAttachmentsRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="listAttachmentsResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getUserList">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getUserListRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getUserListResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="IllegalArgumentFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="IllegalArgumentFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SearchQuerySyntaxFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SearchQuerySyntaxFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="findUsers">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="findUsersRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="findUsersResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="IllegalArgumentFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="IllegalArgumentFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SearchQuerySyntaxFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SearchQuerySyntaxFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deleteAttachment">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="deleteAttachmentRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="deleteAttachmentResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getProjectDiskUsage">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getProjectDiskUsageRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getProjectDiskUsageResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getActiveGroupMembers">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getActiveGroupMembersRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getActiveGroupMembersResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="logoff">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="logoffRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="logoffResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="loginWithToken">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="loginWithTokenRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="loginWithTokenResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="LoginFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="LoginFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getApiVersion">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getApiVersionRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getApiVersionResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getUserProjectList">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getUserProjectListRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getUserProjectListResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="findProjects">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="findProjectsRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="findProjectsResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="IllegalArgumentFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="IllegalArgumentFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SearchQuerySyntaxFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SearchQuerySyntaxFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getProjectMemberList">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getProjectMemberListRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getProjectMemberListResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setProjectAccessLevel">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="setProjectAccessLevelRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="setProjectAccessLevelResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="IllegalArgumentFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="IllegalArgumentFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getCommentList">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getCommentListRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getCommentListResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="createAssociation">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="createAssociationRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="createAssociationResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="IllegalArgumentFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="IllegalArgumentFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deleteAssociation">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="deleteAssociationRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="deleteAssociationResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="IllegalArgumentFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="IllegalArgumentFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getAssociationList">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getAssociationListRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getAssociationListResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getAuditHistoryList">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getAuditHistoryListRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getAuditHistoryListResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="IllegalArgumentFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="IllegalArgumentFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="reindexObject">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="reindexObjectRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="reindexObjectResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="loginAnonymous">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="loginAnonymousRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="loginAnonymousResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="LoginFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="LoginFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getProjectGroupList">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getProjectGroupListRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getProjectGroupListResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getGroupList2">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getGroupList2Request">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getGroupList2Response">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="IllegalArgumentFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="IllegalArgumentFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SearchQuerySyntaxFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SearchQuerySyntaxFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getGroupList">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getGroupListRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getGroupListResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="IllegalArgumentFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="IllegalArgumentFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SearchQuerySyntaxFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SearchQuerySyntaxFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getUserGroupList">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getUserGroupListRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getUserGroupListResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getConfigurationValue">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getConfigurationValueRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getConfigurationValueResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="listProjectAdmins">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="listProjectAdminsRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="listProjectAdminsResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="listAttachments2">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="listAttachments2Request">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="listAttachments2Response">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getAuditHistoryList2">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getAuditHistoryList2Request">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getAuditHistoryList2Response">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="NoSuchObjectFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoSuchObjectFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidSessionFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidSessionFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="PermissionDeniedFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="PermissionDeniedFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SystemFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="IllegalArgumentFault">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="IllegalArgumentFault" namespace="http://schema.open.collab.net/sfee50/soap50/service" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="CollabNetSoapService">
+
+      <wsdl:port binding="impl:CollabNetSoapBinding" name="CollabNet">
+
+         <wsdlsoap:address location="http://localhost:8080/ce-soap50/services/CollabNet"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

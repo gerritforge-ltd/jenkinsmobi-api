@@ -1,0 +1,14 @@
+*.swp
+target/**
+*/*.project
+*/*.classpath
+*/.settings/*
+.classpath
+.project
+.metadata
+.settings
+java.out
+java.err
+run.id
+*/dependency-reduced-pom.xml
+.DS_Store
