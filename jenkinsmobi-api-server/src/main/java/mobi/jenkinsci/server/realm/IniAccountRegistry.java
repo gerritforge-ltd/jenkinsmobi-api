@@ -11,43 +11,146 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-package mobi.jenkinsci.server.realm.accounts;
+package mobi.jenkinsci.server.realm;
 
 import java.io.IOException;
-
-import com.google.inject.Inject;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import mobi.jenkinsci.commons.Account;
 import mobi.jenkinsci.commons.Account.Factory;
+import mobi.jenkinsci.commons.Config;
+import mobi.jenkinsci.plugin.PluginConfig;
 
-public class AccountRegistry {
+import org.ini4j.Ini;
+import org.ini4j.Profile.Section;
 
-  private final SubscriberStore subscriberStore;
+import com.google.common.base.Joiner;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
-  private final Factory accountFactory;
+@Singleton
+public class IniAccountRegistry implements AccountRegistry {
+
+  private final Account.Factory accountFactory;
+  private final Config config;
+  private final Ini accountsIni;
 
   @Inject
-  public AccountRegistry(final SubscriberStore subscriberStore,
-      final Account.Factory accountFactory) {
-    super();
-    this.subscriberStore = subscriberStore;
+  public IniAccountRegistry(final Config config, final Factory accountFactory)
+      throws IOException {
+    this.config = config;
     this.accountFactory = accountFactory;
+    this.accountsIni = config.loadIni(Config.SUBSCRIBERS_CONFIG);
   }
 
-  public Account getAccountBySubscriberId(final String subscriberId)
+  @Override
+  public Account get(final String name) throws IOException {
+    final Section accountSection = accountsIni.get(name);
+    final Set<String> roles =
+        Sets.newHashSet(accountSection.get("roles", "").split(","));
+    final Account account = accountFactory.get(name, roles);
+    account.addPlugins(getPlugins(accountSection.getChild("plugins")));
+    return account;
+  }
+
+  private Collection<PluginConfig> getPlugins(final Section pluginsSection)
       throws IOException {
-    Account account = subscriberStore.get(subscriberId);
+    final List<PluginConfig> pluginsConfigs = Lists.newArrayList();
+
+    for (final String pluginName : pluginsSection.keySet()) {
+      final Section pluginSection = pluginsSection.getChild(pluginName);
+      final PluginConfig pluginConfig =
+          new PluginConfig(pluginName, pluginSection.get("type"));
+      pluginConfig.setDescription(pluginSection.get("description", ""));
+      pluginConfig.setUrl(pluginSection.get("url", ""));
+      pluginConfig.setUsername(pluginSection.get("username", ""));
+      pluginConfig.setPassword(pluginSection.get("password", ""));
+      pluginConfig.setOptions(getPluginOptions(pluginSection
+          .getChild("options")));
+      pluginsConfigs.add(pluginConfig);
+    }
+
+    return pluginsConfigs;
+  }
+
+  private Map<String, String> getPluginOptions(final Section optionsSection) {
+    final Map<String, String> options = Maps.newHashMap();
+    for (final String key : optionsSection.keySet()) {
+      options.put(key, optionsSection.get(key));
+    }
+    return options;
+  }
+
+
+  @Override
+  public void add(final Account account) throws IOException {
+    final Section accountSection = accountsIni.add(account.getName());
+    accountSection.add("roles", Joiner.on(",").join(account.getRoles()));
+    addPluginsToSection(account.getPluginsConfigs(),
+        accountSection.addChild("plugins"));
+    accountsIni.store(config.getFile(Config.SUBSCRIBERS_CONFIG));
+  }
+
+  private void addPluginsToSection(final Collection<PluginConfig> plugins,
+      final Section pluginsSection) {
+    for (final PluginConfig plugin : plugins) {
+      final Section pluginSection =
+          pluginsSection.addChild(plugin.getKey().getName());
+
+      pluginSection.add("type", plugin.getKey().getType());
+      pluginSection.add("description", plugin.getDescription());
+      pluginSection.add("url", plugin.getUrl());
+      pluginSection.add("username", plugin.getUsername());
+      pluginSection.add("password", plugin.getPassword());
+
+      setPluginOptionsToSection(pluginSection.addChild("options"),
+          plugin.getOptions());
+    }
+  }
+
+  private void setPluginOptionsToSection(final Section optionsSection,
+      final Map<String, String> options) {
+    optionsSection.clear();
+    for (final Entry<String, String> option : options.entrySet()) {
+      optionsSection.put(option.getKey(), option.getValue());
+    }
+  }
+
+  @Override
+  public synchronized Account getAccountBySubscriberId(final String subscriberId)
+      throws IOException {
+    Account account = get(subscriberId);
     if (account == null) {
-      account = accountFactory.get(subscriberId);
-      account.addPlugin(new DefaultJenkinsMobiPlugin(subscriberId));
-      subscriberStore.add(account);
+      account = createDefaultAccount(subscriberId);
     }
 
     return account;
   }
 
-  public Account saveAccountToSubscribers(final Account account)
+  private Account createDefaultAccount(final String subscriberId)
       throws IOException {
-    return subscriberStore.update(account);
+    final Account account = accountFactory.get(subscriberId, new HashSet<String>());
+    account.addPlugin(new DefaultJenkinsMobiPlugin(subscriberId));
+    add(account);
+    return account;
+  }
+
+  @Override
+  public void update(final Account account) throws IOException {
+    accountsIni.remove(account.getName());
+    add(account);
+  }
+
+  @Override
+  public Set<String> getRoles(final String name) throws IOException {
+    return get(name).getRoles();
   }
 }
